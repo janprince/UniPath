@@ -12,14 +12,14 @@
 
 To get started with **UniPath**, please follow the instructions below:
 
-1. Visit the [Website link](https://unipath-ai.vercel.app/) to access the online platform.
+1. Visit the [Website link]() to access the online platform.
 2. Enter your Information.
 3. Receive personalized program recommendations based on your input.
 
 
 ## Links
 
-- [Web App](https://unipath-ai.vercel.app/)
+- [Web App]()
 
 
 ## Runing the Project
