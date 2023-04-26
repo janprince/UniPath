@@ -2,7 +2,7 @@ const {Configuration, OpenAIApi} = require("openai")// Make sure to import the r
 const dotenv = require("dotenv").config()
 
 
-async function testrun() {
+async function apiCall(form) {
   const configuration = new Configuration({
     apiKey: "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",
   });
@@ -14,11 +14,11 @@ async function testrun() {
       messages: [
         {
           role: "system",
-          content: "Suggest 3 University Programs based on my interests. the university programs should be available in universities across Ghana.", // Provide the role and content for the system message
+          content: `Suggest 3 University Programs based on the interests and academic performance provided. the university programs should be available in universities across ${form.country}`, // Provide the role and content for the system message
         },
         {
           role: "user",
-          content: "I like Science, ICT and Mathematics. I love the technology field and i want to be a data scientist.", // Provide the role and content for the user message
+          content: `I like ${form.fav_sub1}, ${form.fav_sub2} and ${form.fav_sub3}, I hope to become a ${form.dream_job1} or ${form.dream_job2}. My academic strength is ${form.performance}`, // Provide the role and content for the user message
         },
       ],
       temperature: 0.6,
@@ -33,4 +33,7 @@ async function testrun() {
   }
 }
 
-testrun().then((res) => console.log(res)); // Instead of setting a timeout, use a Promise and then() to handle the response
+apiCall().then((res) => console.log(res)); // Instead of setting a timeout, use a Promise and then() to handle the response
+
+
+export default apiCall;

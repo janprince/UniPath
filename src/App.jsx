@@ -6,6 +6,8 @@ import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Switch } from '@headlessui/react'
+import { Configuration, OpenAIApi } from 'openai'
+import apiCall from './api_utils/openai'
 
 const navigation = [
   { name: 'Home', href: '#' },
@@ -17,12 +19,27 @@ function classNames(...classes) {
 }
 
 export default function App() {
-
+  const [formData, setForm] = useState({
+    fav_sub1: "a",
+    fav_sub2: "",
+    fav_sub3: "",
+    dream_job1: "",
+    dream_job2: "",
+    performance: "",
+    country: "",
+  })
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [agreed, setAgreed] = useState(false)
+  const [processing, setProcessing] = useState(false);
 
   const fromc = "#80dbff"
   const toc = "#899efc"
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    setProcessing(true)
+    console.log(formData)
+  }
 
   return (
     <div className="bg-white">
@@ -184,50 +201,140 @@ export default function App() {
           Aute magna irure deserunt veniam aliqua magna enim voluptate.
         </p>
       </div>
-      <form action="#" method="POST" className="mx-auto mt-16 max-w-3xl sm:mt-20">
+      <form className="mx-auto mt-16 max-w-3xl sm:mt-20" onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+
+          {/* fav1 */}
           <div>
-            <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
-              First name
+            <label htmlFor="fav1" className="block text-sm font-semibold leading-6 text-gray-900">
+            1st Favourite Subject
             </label>
             <div className="mt-2.5">
               <input
                 type="text"
-                name="first-name"
-                id="first-name"
-                autoComplete="given-name"
+                name="fav1"
+                id="fav1"
+                value={formData.fav_sub1}
+                onChange={(e) => setForm({...formData, fav_sub1:e.target.value})}
+                required
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
+
+          {/* fav2 */}
           <div>
-            <label htmlFor="last-name" className="block text-sm font-semibold leading-6 text-gray-900">
-              Last name
+            <label htmlFor="fav2" className="block text-sm font-semibold leading-6 text-gray-900">
+              2nd Favourite Subject
             </label>
             <div className="mt-2.5">
               <input
                 type="text"
-                name="last-name"
-                id="last-name"
-                autoComplete="family-name"
+                name="fav2"
+                id="fav2"
+                value={formData.fav_sub2}
+                onChange={(e) => setForm({...formData, fav_sub2:e.target.value})}
+                required
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
+
+          {/* fav3 */}
+          <div>
+            <label htmlFor="fav3" className="block text-sm font-semibold leading-6 text-gray-900">
+              3rd Favourite Subject
+            </label>
+            <div className="mt-2.5">
+              <input
+                type="text"
+                name="fav3"
+                id="fav3"
+                value={formData.fav_sub3}
+                onChange={(e) => setForm({...formData, fav_sub3:e.target.value})}
+                required
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          {/* performance */}
+          <div>
+            <label htmlFor="performance" className="block text-sm font-semibold leading-6 text-gray-900">
+              Performance from High School
+            </label>
+            <div className="mt-2.5">
+               <select
+                  id="performance"
+                  name="performance"
+                  // value={formData.fav_sub0}
+                  // onSelect={(e) => setForm({...formData, performance:e.target.value})}
+                  onChange={(e) => setForm({...formData, performance:e.target.value})}
+                  required
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                >
+                  <option value="excellent">Excellent</option>
+                  <option value="very good">Very Good</option>
+                  <option value="good">Good</option>
+                  <option value="average">Average</option>
+                  <option value="bad">Bad (Fail)</option>
+                </select>
+            </div>
+          </div>
+
+          {/* dream_job */}
+          <div>
+            <label htmlFor="job1" className="block text-sm font-semibold leading-6 text-gray-900">
+              Dream Job
+            </label>
+            <div className="mt-2.5">
+              <input
+                type="text"
+                name="job1"
+                id="job1"
+                value={formData.dream_job1}
+                onChange={(e) => setForm({...formData, dream_job1:e.target.value})}
+                required
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          {/* 2_dream_job */}
+          <div>
+            <label htmlFor="job2" className="block text-sm font-semibold leading-6 text-gray-900">
+              2nd Dream Job (optional)
+            </label>
+            <div className="mt-2.5">
+              <input
+                type="text"
+                name="job2"
+                id="job2"
+                value={formData.dream_job2}
+                onChange={(e) => setForm({...formData, dream_job2:e.target.value})}
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          {/* country */}
           <div className="sm:col-span-2">
-            <label htmlFor="company" className="block text-sm font-semibold leading-6 text-gray-900">
-              Company
+            <label htmlFor="country" className="block text-sm font-semibold leading-6 text-gray-900">
+              Country
             </label>
             <div className="mt-2.5">
               <input
                 type="text"
-                name="company"
-                id="company"
-                autoComplete="organization"
+                name="country"
+                id="country"
+                value={formData.country}
+                onChange={(e) => setForm({...formData, country:e.target.value})}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
+
+          {/* email */}
           <div className="sm:col-span-2">
             <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">
               Email
@@ -238,56 +345,14 @@ export default function App() {
                 name="email"
                 id="email"
                 autoComplete="email"
+                disabled
+                placeholder="Oh no, we don't need it 😂. Click the button below 👇"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
-          <div className="sm:col-span-2">
-            <label htmlFor="phone-number" className="block text-sm font-semibold leading-6 text-gray-900">
-              Phone number
-            </label>
-            <div className="relative mt-2.5">
-              <div className="absolute inset-y-0 left-0 flex items-center">
-                <label htmlFor="country" className="sr-only">
-                  Country
-                </label>
-                <select
-                  id="country"
-                  name="country"
-                  className="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-                >
-                  <option>US</option>
-                  <option>CA</option>
-                  <option>EU</option>
-                </select>
-                <ChevronDownIcon
-                  className="pointer-events-none absolute right-3 top-0 h-full w-5 text-gray-400"
-                  aria-hidden="true"
-                />
-              </div>
-              <input
-                type="tel"
-                name="phone-number"
-                id="phone-number"
-                autoComplete="tel"
-                className="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-          <div className="sm:col-span-2">
-            <label htmlFor="message" className="block text-sm font-semibold leading-6 text-gray-900">
-              Message
-            </label>
-            <div className="mt-2.5">
-              <textarea
-                name="message"
-                id="message"
-                rows={4}
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                defaultValue={''}
-              />
-            </div>
-          </div>
+          
+          {/* Switch Button */}
           <Switch.Group as="div" className="flex gap-x-4 sm:col-span-2">
             <div className="flex h-6 items-center">
               <Switch
@@ -317,13 +382,26 @@ export default function App() {
             </Switch.Label>
           </Switch.Group>
         </div>
+
         <div className="mt-10">
-          <button
-            type="submit"
-            className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Let's talk
-          </button>
+          
+          {
+            !processing ? 
+              <button type='submit' className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                Do the Magic.
+              </button>
+
+              :
+
+              <button type="button" class="w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" disabled>
+                <span class="flex items-center justify-center">
+                  <span class="mr-4">
+                    <div class="border-2 border-white border-solid h-4 w-4 animate-spin"></div>
+                  </span>
+                  Processing...
+                </span>
+              </button>
+          }
         </div>
       </form>
       </div>
