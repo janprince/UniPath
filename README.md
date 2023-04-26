@@ -36,3 +36,6 @@ We welcome contributions to *UniProgramRecommender**! If you'd like to contribut
 2. Create a new branch with your proposed changes.
 3. Submit a pull request with a description of the changes you've made.
 
+## Screenshots
+<img src="https://github.com/janprince/UniPath/blob/main/public/img/img1.png">
+<img src="https://github.com/janprince/UniPath/blob/main/public/img/img2.png">
