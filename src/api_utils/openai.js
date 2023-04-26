@@ -2,7 +2,7 @@ import { Configuration, OpenAIApi } from 'openai'
 
 async function apiCall(form) {
   const configuration = new Configuration({
-    apiKey: process.env.API_KEY,
+    apiKey: "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",
   });
   const openai = new OpenAIApi(configuration);
 
