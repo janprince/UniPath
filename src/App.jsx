@@ -198,7 +198,7 @@ export default function App() {
       <div className="mx-auto max-w-3xl text-center">
         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Share Your Interests</h2>
         <p className="mt-2 text-lg leading-8 text-gray-600">
-          Aute magna irure deserunt veniam aliqua magna enim voluptate.
+        To achieve optimal outcomes, it is recommended to provide details and be as precise as possible.
         </p>
       </div>
       <form className="mx-auto mt-16 max-w-3xl sm:mt-20" onSubmit={handleSubmit} method='POST'>
@@ -409,24 +409,26 @@ export default function App() {
 
       {/* Results */}
       
-      {
-        suggestions 
-        ?
-          <div className="isolate bg-white px-6 py-20 sm:py-32 lg:px-8">
-        
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Your Suggestions</h2>
-            <p className="mt-2 text-lg leading-8 text-gray-600 pb-10">
-              {/* blah */}
-            </p>
+      <div className="isolate bg-white px-6 py-16 sm:py-32 lg:px-8">
+
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Your Suggestions</h2>
+          <p className="mt-2 text-lg leading-8 text-gray-600 pb-10">
+            {/* blah */}
+          </p>
+          {
+            suggestions ? 
             <p className='text-start mt-2 text-lg leading-8 text-gray-600 pb-10' dangerouslySetInnerHTML={{__html: suggestions.replace(/(\d+\.\s[^:]+:)/g, "<br><br><b>$1</b>")}}>
-            </p>
-          </div>
-    
-    
-          </div> 
-        : <></>
-      }
+          </p>
+
+          :
+          <p>Your Suggestions will appear here.</p>
+          }
+          
+        </div>
+
+      </div> 
+       
 
       <div id="suggestions"></div>
       
