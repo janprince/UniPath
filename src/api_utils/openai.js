@@ -1,9 +1,8 @@
 import { Configuration, OpenAIApi } from 'openai'
 
-
 async function apiCall(form) {
   const configuration = new Configuration({
-    apiKey: process.env.REACT_APP_SECRET_KEY,
+    apiKey: process.env.API_KEY,
   });
   const openai = new OpenAIApi(configuration);
 
@@ -32,7 +31,7 @@ async function apiCall(form) {
   }
 }
 
-apiCall({fav_sub1: "Social Studies", fav_sub2:"science", fav_sub3:"Religion", dream_job1: "", dream_job2:"", performance: "bad", country: "Togo"}).then((res) => console.log(res)); // Instead of setting a timeout, use a Promise and then() to handle the response
+// apiCall({fav_sub1: "Social Studies", fav_sub2:"science", fav_sub3:"Religion", dream_job1: "", dream_job2:"", performance: "bad", country: "Togo"}).then((res) => console.log(res)); // Instead of setting a timeout, use a Promise and then() to handle the response
 
 
 export default apiCall;

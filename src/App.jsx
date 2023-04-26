@@ -408,15 +408,16 @@ export default function App() {
       </div>
 
       {/* Results */}
+      
       {
         suggestions 
         ?
           <div className="isolate bg-white px-6 py-20 sm:py-32 lg:px-8">
         
-          <div className="mx-auto max-w-3xl text-center" id="suggestions">
+          <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Your Suggestions</h2>
             <p className="mt-2 text-lg leading-8 text-gray-600 pb-10">
-              Aute magna irure deserunt veniam aliqua magna enim voluptate.
+              {/* blah */}
             </p>
             <p className='text-start mt-2 text-lg leading-8 text-gray-600 pb-10' dangerouslySetInnerHTML={{__html: suggestions.replace(/(\d+\.\s[^:]+:)/g, "<br><br><b>$1</b>")}}>
             </p>
@@ -426,6 +427,8 @@ export default function App() {
           </div> 
         : <></>
       }
+
+      <div id="suggestions"></div>
       
     </div>
     
