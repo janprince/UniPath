@@ -3,7 +3,7 @@ import { Configuration, OpenAIApi } from 'openai'
 
 async function apiCall(form) {
   const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: "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",
   });
   const openai = new OpenAIApi(configuration);
 
@@ -13,7 +13,7 @@ async function apiCall(form) {
       messages: [
         {
           role: "system",
-          content: `Based on the academic performance and interests you have provided, please suggest three degree programs that are available in universities across ${form.country}.`, // Provide the role and content for the system message
+          content: `Based on the academic performance and interests you have provided, suggest three degree programs that are available in universities across ${form.country}.`, // Provide the role and content for the system message
         },
         {
           role: "user",
