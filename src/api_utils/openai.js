@@ -1,5 +1,4 @@
-const {Configuration, OpenAIApi} = require("openai")// Make sure to import the required modules
-const dotenv = require("dotenv").config()
+import { Configuration, OpenAIApi } from 'openai'
 
 
 async function apiCall(form) {
@@ -14,7 +13,7 @@ async function apiCall(form) {
       messages: [
         {
           role: "system",
-          content: `Suggest 3 University Programs based on the interests and academic performance provided. the university programs should be available in universities across ${form.country}`, // Provide the role and content for the system message
+          content: `Based on the academic performance and interests you have provided, please suggest three degree programs that are available in universities across ${form.country}.`, // Provide the role and content for the system message
         },
         {
           role: "user",
@@ -33,7 +32,7 @@ async function apiCall(form) {
   }
 }
 
-apiCall().then((res) => console.log(res)); // Instead of setting a timeout, use a Promise and then() to handle the response
+// apiCall({fav_sub1: "Social Studies", fav_sub2:"science", fav_sub3:"Religion", dream_job1: "", dream_job2:"", performance: "bad", country: "Togo"}).then((res) => console.log(res)); // Instead of setting a timeout, use a Promise and then() to handle the response
 
 
 export default apiCall;
