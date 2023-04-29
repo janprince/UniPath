@@ -12,12 +12,16 @@ async function apiCall(form) {
       messages: [
         {
           role: "system",
-          content: `Based on the academic performance and interests you have provided, suggest three degree programs that are available in universities across ${form.country}.`, // Provide the role and content for the system message
+          content: `Based on the academic performance and interests provided, suggest three degree programs that are available in universities across ${form.country}.`, // Provide the role and content for the system message
         },
         {
           role: "user",
           content: `I like ${form.fav_sub1}, ${form.fav_sub2} and ${form.fav_sub3}, I hope to become a ${form.dream_job1} or ${form.dream_job2}. My academic strength is ${form.performance}`, // Provide the role and content for the user message
         },
+        {
+          role: "user",
+          content: `Add universities offering the programs you suggested.`, // Provide the role and content for the user message
+        }
       ],
       temperature: 0.6,
     });
@@ -25,8 +29,10 @@ async function apiCall(form) {
   } catch (error) {
     if (error.response) {
       console.error(error.response.status, error.response.data);
+      return "Processing rate limit exceeded, Try again in 21 seconds. 😑"
     } else {
       console.error(`Error with OpenAI API request: ${error.message}`);
+      return "Error Processing Your Request, Try again later 😑"
     }
   }
 }
